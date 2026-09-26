@@ -1,23 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Media - Home</title>
-  <!-- Materialize CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f14;
+      color: #e4e4e7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero { max-width: 600px; padding: 40px; }
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #7c5cff, #14b8a6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+    p { color: #a1a1aa; font-size: 1.1rem; margin-bottom: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, #7c5cff, #6d4fe0);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(124, 92, 255, 0.3);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(124, 92, 255, 0.45); }
+  </style>
 </head>
-<body class="container center-align" style="margin-top: 80px;">
-  <h2 class="blue-text text-darken-2">Bienvenido a Social Media 🚀</h2>
-  <p class="flow-text">Conéctate, comparte y explora publicaciones</p>
-  <div class="row" style="margin-top: 50px;">
-    <div class="col s12 m12">
-      <a href="/posts/" class="btn-large waves-effect waves-light blue darken-2">
-        <i class="material-icons left">image</i> Ver Posts
-      </a>
-    </div>
+<body>
+  <div class="hero">
+    <h1>Bienvenido a Social Media 🚀</h1>
+    <p>Conéctate, comparte y explora publicaciones</p>
+    <a href="/posts/" class="btn">📷 Ver Posts</a>
   </div>
-  <!-- Materialize JS + icons -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body>
 </html>

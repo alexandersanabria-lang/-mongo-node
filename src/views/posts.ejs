@@ -4,61 +4,127 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Media - Posts</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f14;
+      color: #e4e4e7;
+    }
+    nav {
+      background: #17171f;
+      padding: 18px 24px;
+      border-bottom: 1px solid #27272f;
+      text-align: center;
+    }
+    nav a {
+      color: #f4f4f5;
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #7c5cff, #14b8a6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+    h2 { text-align: center; margin-bottom: 24px; font-weight: 600; }
+    .new-post-wrap { text-align: center; margin-bottom: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, #7c5cff, #6d4fe0);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: #17171f;
+      border: 1px solid #27272f;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+    .card-body { padding: 18px; flex: 1; }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; display: block; }
+    .card-content { color: #a1a1aa; font-size: 0.95rem; margin-bottom: 12px; }
+    .chip {
+      display: inline-block;
+      background: #27272f;
+      color: #14b8a6;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin: 2px 4px 2px 0;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-top: 1px solid #27272f;
+      font-size: 0.85rem;
+      color: #a1a1aa;
+    }
+    .actions a, .actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #a1a1aa;
+      font-size: 1.1rem;
+      margin-left: 10px;
+      text-decoration: none;
+    }
+    .actions a:hover { color: #14b8a6; }
+    .actions button:hover { color: #f87171; }
+  </style>
 </head>
-<body class="grey lighten-4">
-  <nav>
-    <div class="nav-wrapper teal">
-      <a href="/" class="brand-logo center">Social Media</a>
-    </div>
-  </nav>
+<body>
+  <nav><a href="/">Social Media</a></nav>
 
   <div class="container">
-    <h4 class="center-align">Bienvenido a Social Media</h4>
-
-    <div class="center-align" style="margin-bottom: 20px;">
-      <a href="/posts/new" class="btn waves-effect waves-light teal">
-        <i class="material-icons left">add</i> Nuevo Post
-      </a>
+    <h2>Bienvenido a Social Media</h2>
+    <div class="new-post-wrap">
+      <a href="/posts/new" class="btn">➕ Nuevo Post</a>
     </div>
 
-    <div class="row">
+    <div class="grid">
       <% posts.forEach(function(post) { %>
-        <div class="col s12 m6 l4">
-          <div class="card">
-            <div class="card-image">
-              <img src="<%= post.imageUrl || 'https://media.istockphoto.com/id/627795510/photo/example.jpg?s=612x612&w=0&k=20&c=lpUf5rjPVd6Kl_M6heqC8sUncR4FLmtsRzeYdTr5X_I=' %>" alt="Imagen del post">
+        <div class="card">
+          <img src="<%= post.imageUrl || 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop' %>" alt="Imagen del post">
+          <div class="card-body">
+            <span class="card-title"><%= post.title %></span>
+            <p class="card-content"><%= post.content %></p>
+            <div>
+              <% (post.hashtags || []).forEach(function(tag) { %>
+                <span class="chip">#<%= tag %></span>
+              <% }); %>
             </div>
-            <div class="card-content">
-              <span class="card-title"><%= post.title %></span>
-              <p><%= post.content %></p>
-              <p>
-                <strong>Hashtags:</strong>
-                <% (post.hashtags || []).forEach(function(tag) { %>
-                  <span class="chip">#<%= tag %></span>
-                <% }); %>
-              </p>
-            </div>
-            <div class="card-action">
-              <div class="right">
-                <a href="/posts/<%= post._id %>/edit" class="btn-flat">
-                  <i class="material-icons teal-text">edit</i>
-                </a>
-                <form action="/posts/<%= post._id %>/delete" method="POST" style="display:inline;">
-                  <button type="submit" class="btn-flat" style="border:none; background:none; cursor:pointer;">
-                    <i class="material-icons red-text">delete</i>
-                  </button>
-                </form>
-              </div>
-              <span><strong>Autor:</strong> <%= post.user ? post.user.name + " " + post.user.lastName : "Desconocido" %></span>
+          </div>
+          <div class="card-footer">
+            <span><strong>Autor:</strong> <%= post.user ? post.user.name + " " + post.user.lastName : "Desconocido" %></span>
+            <div class="actions">
+              <a href="/posts/<%= post._id %>/edit">✏️</a>
+              <form action="/posts/<%= post._id %>/delete" method="POST" style="display:inline;">
+                <button type="submit">🗑️</button>
+              </form>
             </div>
           </div>
         </div>
       <% }); %>
     </div>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

@@ -2,64 +2,96 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nuevo Post</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f14;
+      color: #e4e4e7;
+    }
+    nav {
+      background: #17171f;
+      padding: 18px 24px;
+      border-bottom: 1px solid #27272f;
+      text-align: center;
+    }
+    nav a {
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #7c5cff, #14b8a6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .container { max-width: 520px; margin: 40px auto; padding: 0 20px; }
+    h2 { text-align: center; margin-bottom: 28px; }
+    form {
+      background: #17171f;
+      border: 1px solid #27272f;
+      border-radius: 14px;
+      padding: 28px;
+    }
+    label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: #a1a1aa; }
+    input, select, textarea {
+      width: 100%;
+      background: #0f0f14;
+      border: 1px solid #27272f;
+      border-radius: 8px;
+      padding: 12px;
+      color: #e4e4e7;
+      margin-bottom: 20px;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    textarea { resize: vertical; min-height: 90px; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #7c5cff; }
+    .actions { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
+    .btn {
+      background: linear-gradient(90deg, #7c5cff, #6d4fe0);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-flat { color: #a1a1aa; text-decoration: none; padding: 12px; }
+  </style>
 </head>
-<body class="grey lighten-4">
-  <nav>
-    <div class="nav-wrapper teal">
-      <a href="/" class="brand-logo center">Social Media</a>
-    </div>
-  </nav>
+<body>
+  <nav><a href="/">Social Media</a></nav>
 
-  <div class="container" style="margin-top: 40px;">
-    <h4 class="center-align">Crear nuevo Post</h4>
-
+  <div class="container">
+    <h2>Crear nuevo Post</h2>
     <form action="/posts" method="POST">
-      <div class="input-field">
-        <select name="userId" required>
-          <option value="" disabled selected>Selecciona un autor</option>
-          <% users.forEach(function(user) { %>
-            <option value="<%= user._id %>"><%= user.name %> <%= user.lastName %></option>
-          <% }); %>
-        </select>
-        <label>Autor</label>
-      </div>
+      <label>Autor</label>
+      <select name="userId" required>
+        <option value="" disabled selected>Selecciona un autor</option>
+        <% users.forEach(function(user) { %>
+          <option value="<%= user._id %>"><%= user.name %> <%= user.lastName %></option>
+        <% }); %>
+      </select>
 
-      <div class="input-field">
-        <input type="text" name="title" minlength="5" maxlength="30" required>
-        <label>Título</label>
-      </div>
+      <label>Título</label>
+      <input type="text" name="title" minlength="5" maxlength="30" required>
 
-      <div class="input-field">
-        <textarea class="materialize-textarea" name="content" minlength="10" required></textarea>
-        <label>Contenido</label>
-      </div>
+      <label>Contenido</label>
+      <textarea name="content" minlength="10" required></textarea>
 
-      <div class="input-field">
-        <input type="text" name="hashtags" placeholder="nodejs, social, práctica">
-        <label class="active">Hashtags (separados por coma)</label>
-      </div>
+      <label>Hashtags (separados por coma)</label>
+      <input type="text" name="hashtags" placeholder="nodejs, social, práctica">
 
-      <div class="input-field">
-        <input type="text" name="imageUrl">
-        <label>URL de la imagen (opcional)</label>
-      </div>
+      <label>URL de la imagen (opcional)</label>
+      <input type="text" name="imageUrl">
 
-      <div class="center-align">
-        <button type="submit" class="btn waves-effect waves-light teal">Guardar</button>
+      <div class="actions">
+        <button type="submit" class="btn">Guardar</button>
         <a href="/posts" class="btn-flat">Cancelar</a>
       </div>
     </form>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script>
-    // Activa los <select> de Materialize
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('select');
-      M.FormSelect.init(elems);
-    });
-  </script>
 </body>
 </html>
